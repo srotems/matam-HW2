@@ -11,30 +11,40 @@ class Matrix
 private:
     int m_numOfRow;
     int m_numOfCol;
-    int* m_matrixData;
+    double * m_matrixData;
 public:
     Matrix();
     Matrix(int m_numOfRow, int m_numOfCol);
     Matrix(int m_numOfRow, int m_numOfCol, int value);
     Matrix(const Matrix& other);
     ~Matrix();
-
-
     Matrix& operator=(const Matrix& other);
-    Matrix& operator=(const int i);
-    Matrix& operator+(const Matrix& other);
-    Matrix& operator()(const int x, const int y);
-    bool operator==(const Matrix& other);
-    bool operator==(const int i);
-    Matrix& operator*(const Matrix& other);
-    Matrix& operator*(const int i);
-    Matrix& operator*=(const int i);
-    Matrix& operator+=(const Matrix& other);
-    Matrix& operator*=(const Matrix& other);
-    Matrix& operator-=(const Matrix& other);
-    Matrix& operator-(const Matrix& other);
-    Matrix& operator-();
+
+    double& operator()(const int x, const int y) const;
     friend std::ostream& operator<<(std::ostream& out, const Matrix& other);
+    Matrix operator+(const Matrix& other) const;
+    Matrix operator-(const Matrix& other) const;
+    Matrix operator*(const Matrix& other) const;
+    Matrix& operator+=(const Matrix& other);
+    Matrix& operator-=(const Matrix& other);
+    Matrix& operator*=(const Matrix& other);
+    Matrix& operator-();
+    Matrix& operator*(const int x);
+    Matrix& operator*=(const int i);
+    bool operator==(const Matrix& other);
+    bool operator!=(const Matrix& other);
+
+
+
+
+
+
+
+
+
+    Matrix& operator=(const int i);
+    bool operator==(const int i);
+
     // Matrix& operator*(const int x, const Matrix m);
     //  Matrix operator*(int scalar, const Matrix& other);
     Matrix& rotateClockwise();
