@@ -41,9 +41,9 @@ Matrix& Matrix::operator=(const int i){
 Matrix& Matrix::operator=(const Matrix& other){
     if (this == &other)
         return *this;
-    //TODO
-    //if (m_matrixData != nullptr)
-    //    delete[] m_matrixData;
+
+    delete[] m_matrixData;
+
     m_numOfCol = other.m_numOfCol;
     m_numOfRow = other.m_numOfRow;
     m_matrixData = new double[m_numOfRow * m_numOfCol];
