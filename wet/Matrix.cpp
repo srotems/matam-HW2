@@ -23,6 +23,7 @@ Matrix::Matrix(int n, int m, int value) : m_numOfRow(n), m_numOfCol(m) {
 }
 
 Matrix::Matrix(const Matrix& other): m_numOfRow(other.m_numOfRow), m_numOfCol(other.m_numOfCol){
+
     m_matrixData = new double[m_numOfRow * m_numOfCol];
     for (int i = 0; i < m_numOfRow * m_numOfCol; i++) {
         m_matrixData[i] = other.m_matrixData[i];
@@ -40,7 +41,9 @@ Matrix& Matrix::operator=(const int i){
 Matrix& Matrix::operator=(const Matrix& other){
     if (this == &other)
         return *this;
-    delete[] m_matrixData;
+    //TODO
+    //if (m_matrixData != nullptr)
+    //    delete[] m_matrixData;
     m_numOfCol = other.m_numOfCol;
     m_numOfRow = other.m_numOfRow;
     m_matrixData = new double[m_numOfRow * m_numOfCol];
@@ -108,17 +111,17 @@ Matrix Matrix::operator*(const Matrix& other) const{
     return newMatrix;
 }
 
-Matrix& Matrix::operator*(const int x) {
+Matrix& Matrix::operator*(const int scalar) {
     for (int i = 0; i < m_numOfRow; ++i) {
         for (int j = 0; j < m_numOfCol; ++j) {
-            (*this)(i, j) = x * (*this)(i, j);
+            (*this)(i, j) = scalar * (*this)(i, j);
         }
     }
     return *this;
 }
 
-Matrix& Matrix::operator*=(const int i) {
-    *this = *this * i;
+Matrix& Matrix::operator*=(const int scalar) {
+    *this = *this * scalar;
     return *this;
 }
 
@@ -168,17 +171,40 @@ std::ostream& operator<<(std::ostream& out, const Matrix& other){
     return out;
 }
 
-
-Matrix& Matrix::rotateClockwise() {
-    return *this;
+Matrix& operator*(int scalar, Matrix& other){
+    return (other * scalar);
 }
 
-Matrix &Matrix::rotateCounterClockwise() {
-    return *this;
+
+
+Matrix Matrix::rotateClockwise() {
+    Matrix newMatrix(m_numOfCol, m_numOfRow);
+    for (int i = 0; i < m_numOfRow; i++) {
+        for (int j = 0; j < m_numOfCol; ++j) {
+            newMatrix(j, m_numOfRow - 1 - i) = (*this)(i, j);
+        }
+    }
+    return newMatrix;
 }
 
-Matrix &Matrix::transpose() {
-    return *this;
+Matrix Matrix::rotateCounterClockwise() {
+    Matrix newMatrix(m_numOfCol, m_numOfRow);
+    for (int i = 0; i < m_numOfRow; i++) {
+        for (int j = 0; j < m_numOfCol; ++j) {
+            newMatrix(m_numOfCol - 1 - j, i) = (*this)(i, j);
+        }
+    }
+    return newMatrix;
+}
+
+Matrix Matrix::transpose() {
+    Matrix newMatrix(m_numOfCol, m_numOfRow);
+    for (int i = 0; i < m_numOfRow; ++i) {
+        for (int j = 0; j < m_numOfCol; ++j) {
+            newMatrix(i, j) = (*this)(j, i);
+        }
+    }
+    return newMatrix;
 }
 
 

@@ -29,12 +29,14 @@ public:
     Matrix& operator-=(const Matrix& other);
     Matrix& operator*=(const Matrix& other);
     Matrix& operator-();
-    Matrix& operator*(const int x);
-    Matrix& operator*=(const int i);
+    Matrix& operator*(const int scalar);
+    friend Matrix& operator*(int scalar, Matrix& other);
+    Matrix& operator*=(const int scalar);
     bool operator==(const Matrix& other);
     bool operator!=(const Matrix& other);
 
-
+    Matrix transpose();
+    Matrix rotateClockwise();
 
 
 
@@ -47,11 +49,10 @@ public:
 
     // Matrix& operator*(const int x, const Matrix m);
     //  Matrix operator*(int scalar, const Matrix& other);
-    Matrix& rotateClockwise();
 
-    Matrix &rotateCounterClockwise();
+    Matrix rotateCounterClockwise();
 
-    Matrix &transpose();
+
 };
 
 
