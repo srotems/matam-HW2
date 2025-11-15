@@ -4,6 +4,8 @@
 
 #include "MataMvidia.h"
 
+#include "Utilities.h"
+
 MataMvidia::MataMvidia(const std::string& movieName,
                        const std::string& creatorName,
                        Matrix* frames,
@@ -41,6 +43,10 @@ MataMvidia& MataMvidia::operator=(const MataMvidia& other){
 
 
 Matrix& MataMvidia::operator[](const int i){
+    if (i >= m_numFrames) {
+        exitWithError(MatamErrorType::OutOfBounds);
+    }
+
     return m_frames[i];
 }
 
@@ -82,7 +88,7 @@ MataMvidia& MataMvidia::operator+=(const Matrix& frame){
     for (; i < m_numFrames; ++i) {
         newFrames[i] = m_frames[i];
     }
-    newFrames[m_numFrames + 1] = Matrix(frame);
+    newFrames[m_numFrames] = Matrix(frame);
     m_frames = newFrames;
     m_numFrames++;
     return *this;
