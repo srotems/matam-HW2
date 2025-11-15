@@ -104,11 +104,12 @@ MataMvidia& MataMvidia::operator+=(const Matrix& frame){
 
 std::ostream& operator<<(std::ostream& out, const MataMvidia& other){
     out << "Movie Name: " << other.m_movieName << std::endl;
-    out << "Author: " << other.m_creatorName << std::endl;
+    out << "Author: " << other.m_creatorName << std::endl << std::endl;
+
     for (int i = 0; i < other.m_numFrames; ++i) {
         out << "Frame " << i << ":" << std::endl;
         out << other.m_frames[i] << std::endl;
     }
-    out << "-----End of Movie -----" << std::endl;
+    out << "-----End of Movie-----" << std::endl;
     return out;
 }
