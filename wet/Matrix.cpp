@@ -96,20 +96,22 @@ bool Matrix::operator==(const int i) {
 }
 
 Matrix Matrix::operator*(const Matrix& other) const{
-    if(this->m_numOfCol != other.m_numOfRow)
+    if (m_numOfCol != other.m_numOfRow)
         exitWithError(MatamErrorType::UnmatchedSizes);
-    Matrix newMatrix(this->m_numOfCol, other.m_numOfRow);
-    for (int i = 0; i < m_numOfCol; ++i) {
-        for (int j = 0; j < other.m_numOfRow; ++j) {
+
+    Matrix newMatrix(m_numOfRow, other.m_numOfCol);
+    for (int i = 0; i < m_numOfRow; ++i) {
+        for (int j = 0; j < other.m_numOfCol; ++j) {
             double sum = 0;
             for (int k = 0; k < m_numOfCol; ++k) {
-                sum = sum + (*this)(i, k) * other(k, j);
+                sum += (*this)(i, k) * other(k, j);
             }
             newMatrix(i, j) = sum;
         }
     }
     return newMatrix;
 }
+
 
 Matrix& Matrix::operator*(const int scalar) {
     for (int i = 0; i < m_numOfRow; ++i) {

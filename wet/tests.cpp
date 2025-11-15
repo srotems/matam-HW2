@@ -26,7 +26,7 @@ do {                                                                           \
 int main() {
     testMatrix(std::cout);
     testMataMvidia(std::cout);
-    return 0;
+    return 1;
 }
 
 bool testMatrix(std::ostream& out) {

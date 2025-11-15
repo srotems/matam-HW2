@@ -12,7 +12,11 @@ MataMvidia::MataMvidia(const std::string& movieName,
                        int numFrames) : m_movieName(movieName),
                                         m_creatorName(creatorName),
                                         m_frames(frames),
-                                        m_numFrames(numFrames){
+                                        m_numFrames(numFrames) {
+    m_frames = new Matrix[m_numFrames];
+    for (int i = 0; i < m_numFrames; ++i) {
+        m_frames[i] = frames[i];
+    }
 }
 
 MataMvidia::MataMvidia(const MataMvidia& other): m_movieName(other.m_movieName), m_creatorName(other.m_creatorName), m_numFrames(other.m_numFrames){
@@ -21,6 +25,7 @@ MataMvidia::MataMvidia(const MataMvidia& other): m_movieName(other.m_movieName),
         m_frames[i] = other.m_frames[i];
     }
 }
+
 MataMvidia::~MataMvidia(){
     delete[] m_frames;
 }
@@ -51,18 +56,18 @@ Matrix& MataMvidia::operator[](const int i){
 }
 
 MataMvidia& MataMvidia::operator+=(const MataMvidia& other){
-    Matrix* newFrames;
-    newFrames = new Matrix[m_numFrames + other.m_numFrames];
+    Matrix* newFrames = new Matrix[m_numFrames + other.m_numFrames];
     int i = 0;
     for (; i < m_numFrames; ++i) {
-        newFrames[i] = Matrix(m_frames[i]);
+        newFrames[i] = m_frames[i];
     }
     for (int j = 0; j < other.m_numFrames; j++, i++) {
-        newFrames[i] = Matrix(other.m_frames[j]);
+        newFrames[i] = other.m_frames[j];
     }
+
+    delete[] m_frames;
     m_frames = newFrames;
     m_numFrames += other.m_numFrames;
-    delete[] newFrames;
     return *this;
 }
 
@@ -71,13 +76,14 @@ MataMvidia MataMvidia::operator+(const MataMvidia& other) {
     newFrames = new Matrix[m_numFrames + other.m_numFrames];
     int i = 0;
     for (; i < m_numFrames; ++i) {
-        newFrames[i] = Matrix(m_frames[i]);
+        newFrames[i] = m_frames[i];
     }
     for (int j = 0; j < other.m_numFrames; j++, i++) {
-        newFrames[i] = Matrix(other.m_frames[j]);
+        newFrames[i] = other.m_frames[j];
     }
     int newNumFrames = m_numFrames + other.m_numFrames;
     MataMvidia newMataMvidia(m_movieName, m_creatorName, newFrames, newNumFrames);
+    delete[] newFrames;
     return newMataMvidia;
 }
 
@@ -88,9 +94,10 @@ MataMvidia& MataMvidia::operator+=(const Matrix& frame){
     for (; i < m_numFrames; ++i) {
         newFrames[i] = m_frames[i];
     }
-    newFrames[m_numFrames] = Matrix(frame);
+    newFrames[m_numFrames] = frame;
+    delete[] m_frames;
     m_frames = newFrames;
-    m_numFrames++;
+    ++m_numFrames;
     return *this;
 }
 
