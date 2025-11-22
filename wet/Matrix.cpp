@@ -178,4 +178,4 @@ double Matrix::CalcFrobeniusNorm(const Matrix& a) {
         }
     }
     return std::sqrt(sum);
-}d
+}
