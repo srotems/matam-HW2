@@ -14,8 +14,11 @@ Matrix::Matrix( int n,  int m, int value)
 Matrix::Matrix( int n, int m)
     : m_row(n), m_col(m) 
 {
-    Matrix( m_row, m_col, 0);
+     m_matrixData = new int[m_row * m_col];
+    for (int i = 0; i < m_row * m_col; i++)
+        m_matrixData[i] = 0;
 }
+
 Matrix::~Matrix() {
     delete[] m_matrixData;
 }
@@ -168,9 +171,11 @@ Matrix Matrix::transpose() const {
 
 double Matrix::CalcFrobeniusNorm(const Matrix& a) {
     double sum = 0.0;
-    for (int i = 0; i < a.m_row * a.m_col; i++) {
-        for (int j = 0; j < a.m_col; j++)
-        sum += a(i, j) * a(i, j);
+    for (int i = 0; i < a.m_row; ++i) {
+        for (int j = 0; j < a.m_col; ++j) {
+            double val = a(i, j);
+            sum += val * val;
+        }
     }
     return std::sqrt(sum);
-}
+}d
