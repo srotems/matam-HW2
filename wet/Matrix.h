@@ -42,4 +42,4 @@ Matrix operator-(const Matrix& a, const Matrix& b);
 Matrix operator*(const Matrix& a, const Matrix& b);
 Matrix operator*(const int& number, const Matrix& a);
 
-#endif MTM_HW2_WET_MATRIX_H
+#endif //MTM_HW2_WET_MATRIX_H
