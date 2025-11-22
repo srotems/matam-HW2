@@ -1,60 +1,45 @@
-//
-// Created by User on 13/11/2025.
-//
 
 #ifndef MTM_HW2_WET_MATRIX_H
 #define MTM_HW2_WET_MATRIX_H
-#include <ostream>
+#include <iostream>
 
-class Matrix
-{
-private:
-    int m_numOfRow;
-    int m_numOfCol;
-    double * m_matrixData;
-public:
-    Matrix();
-    Matrix(int m_numOfRow, int m_numOfCol);
-    Matrix(int m_numOfRow, int m_numOfCol, int value);
-    Matrix(const Matrix& other);
-    ~Matrix();
-    Matrix& operator=(const Matrix& other);
+class Matrix{
+    private:
+        int m_row;
+        int m_col;
+        int* m_matrixData;
 
-    double& operator()(const int x, const int y) const;
-    friend std::ostream& operator<<(std::ostream& out, const Matrix& other);
-    Matrix operator+(const Matrix& other) const;
-    Matrix operator-(const Matrix& other) const;
-    Matrix operator*(const Matrix& other) const;
-    Matrix& operator+=(const Matrix& other);
-    Matrix& operator-=(const Matrix& other);
-    Matrix& operator*=(const Matrix& other);
-    Matrix& operator-();
-    Matrix& operator*(const int scalar);
-    friend Matrix& operator*(int scalar, Matrix& other);
-    Matrix& operator*=(const int scalar);
-    bool operator==(const Matrix& other);
-    bool operator!=(const Matrix& other);
+    public:
+        Matrix();
+        Matrix( int n,  int m);
+        Matrix( int n,  int m, int value);
+        Matrix(const Matrix& other);
+        Matrix& operator=(Matrix other);
+        ~Matrix();
+        void swap(Matrix& other);
+        int& operator()(int i, int j);
+        const int& operator()(int i, int j) const;
+        friend std::ostream& operator<<(std::ostream& os, const Matrix& m);
+        Matrix operator-() const;
+        Matrix& operator+=(const Matrix& other);
+        Matrix& operator-=(const Matrix& other);
+        Matrix& operator*=(const Matrix& other);
+        Matrix& operator*=(const int& number);
+        Matrix operator*(const int& number) const;
+        bool operator==(const Matrix& other) const;
+        bool operator!=(const Matrix& other) const;
 
-    Matrix transpose();
-    Matrix rotateClockwise();
+        Matrix rotateClockwise() const;
+        Matrix rotateCounterClockwise() const;
+        Matrix transpose() const;
 
+        static double CalcFrobeniusNorm(const Matrix& m);   
 
-
-
-
-
-
-    Matrix& operator=(const int i);
-    bool operator==(const int i);
-
-    // Matrix& operator*(const int x, const Matrix m);
-    //  Matrix operator*(int scalar, const Matrix& other);
-
-    Matrix rotateCounterClockwise();
-
-
+        
 };
+Matrix operator+(const Matrix& a, const Matrix& b);
+Matrix operator-(const Matrix& a, const Matrix& b);
+Matrix operator*(const Matrix& a, const Matrix& b);
+Matrix operator*(const int& number, const Matrix& a);
 
-
-
-#endif //MTM_HW2_WET_MATRIX_H
+#endif MTM_HW2_WET_MATRIX_H
