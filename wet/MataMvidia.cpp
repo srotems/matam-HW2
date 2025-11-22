@@ -48,13 +48,18 @@ MataMvidia& MataMvidia::operator=(const MataMvidia& other){
 
 
 Matrix& MataMvidia::operator[](const int i){
-    if (i >= m_numFrames) {
+    if (i < 0 || i >= m_numFrames || m_frames == nullptr) {
         exitWithError(MatamErrorType::OutOfBounds);
     }
-
     return m_frames[i];
 }
 
+const Matrix& MataMvidia::operator[](const int i) const{
+    if (i < 0 || i >= m_numFrames || m_frames == nullptr) {
+        exitWithError(MatamErrorType::OutOfBounds);
+    }
+    return m_frames[i];
+}
 MataMvidia& MataMvidia::operator+=(const MataMvidia& other){
     Matrix* newFrames = new Matrix[m_numFrames + other.m_numFrames];
     int i = 0;

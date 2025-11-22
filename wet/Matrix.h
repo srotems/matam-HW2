@@ -34,7 +34,9 @@ class Matrix{
         Matrix transpose() const;
 
         static double CalcFrobeniusNorm(const Matrix& m);   
-
+        static int CalcDeterminant(const Matrix& a);
+        int getRows() const { return m_row; }
+        int getCols() const { return m_col; }
         
 };
 Matrix operator+(const Matrix& a, const Matrix& b);

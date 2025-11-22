@@ -25,11 +25,16 @@ public:
     ~MataMvidia();
     MataMvidia& operator=(const MataMvidia& other);
     Matrix& operator[](const int i);
+    const Matrix& operator[](const int i) const;
     MataMvidia& operator+=(const MataMvidia& other);
     MataMvidia& operator+=(const Matrix& frame);
     MataMvidia operator+(const MataMvidia& other);
     friend std::ostream& operator<<(std::ostream& out, const MataMvidia& other);
 
+
+    std::string getName() const { return m_movieName; }
+    std::string getCreator() const { return m_creatorName; }
+    int getNumFrames() const { return m_numFrames; }
 };
 
 

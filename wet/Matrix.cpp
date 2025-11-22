@@ -179,3 +179,29 @@ double Matrix::CalcFrobeniusNorm(const Matrix& a) {
     }
     return std::sqrt(sum);
 }
+
+int Matrix::CalcDeterminant(const Matrix& a) {
+    if (a.m_row != a.m_col) {
+        exitWithError(MatamErrorType::UnmatchedSizes);
+    }
+    int n = a.m_row;
+    if (n == 1) return a(0, 0);
+    if (n == 2) return a(0,0) * a(1,1) - a(0,1) * a(1,0);
+    int det = 0;
+    for (int col = 0; col < n; col++) {
+        Matrix smaller(n - 1, n - 1); // יוצרים מטריצה קטנה יותר
+        int smallerI = 0;
+        for (int i = 1; i < n; i++) { 
+            int smallerJ = 0;
+            for (int j = 0; j < n; j++) {
+                if (j == col) continue; // מדלגים על העמודה שנחתכת
+                smaller(smallerI, smallerJ) = a(i, j);
+                smallerJ++;
+            }
+            smallerI++;
+        }
+        int sign = (col % 2 == 0) ? 1 : -1;         // הסימן צריך להיות (+ - + - ...)
+        det += sign * a(0, col) * CalcDeterminant(smaller);
+    }
+    return det;
+}
